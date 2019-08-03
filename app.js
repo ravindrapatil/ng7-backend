@@ -11,8 +11,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// mongoose.connect('mongodb://ravindra:ravindra123@ds119223.mlab.com:19223/ng7-users', (err) => {
-mongoose.connect('mongodb://localhost:27017/ngBackend', (err) => { 
+mongoose.connect('mongodb://ravindra:ravindra123@ds119223.mlab.com:19223/ng7-users', (err) => {
+// mongoose.connect('mongodb://localhost:27017/ngBackend', (err) => { 
   if(!err) {
     console.log('MongoDB connection succeeded.');
   } else {
