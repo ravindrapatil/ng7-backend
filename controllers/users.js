@@ -110,19 +110,20 @@ exports.getSingleUser = (req, res, next) => {
 }
 
 exports.updateProfile = (req, res, next) => {
-    const userIda = req.params.userId;
+    const userId = req.params.userId;
+    console.log('userId');
     const profileData = new Profile({
-        // userID: userIda,
+        // userID: userId,
         addressOne: req.body.addressOne,
         addressTwo: req.body.addressTwo,
         phoneNo: req.body.phoneNo,
         altPhoneNo: req.body.altPhoneNo,
-        profile: userIda
+        profile: userId
     })
     profileData.save()
         .then((result) => {
             console.log(result);
-            Profile.find({ profile: userIda })
+            Profile.find({ profile: userId })
                 .populate('profile')
                 .then(result => {
                     res.status(201).json({
