@@ -10,7 +10,8 @@ exports.create_user = (req, res, next) => {
             if (user.length >= 1) {
                 console.log(user);
                 return res.status(409).json({
-                    message: 'Email Already Exists'
+                    statusCode: 409,
+                    message: 'Email Already Exists' 
                 });
             } else {
                 var user = new User({
@@ -24,12 +25,14 @@ exports.create_user = (req, res, next) => {
                     .then((result) => {
                         console.log(result);
                         res.status(200).json({
-                            message: 'User created'
+                            statusCode: 200,
+                            message: 'New User created successfully'
                         })
                     })
                     .catch((err) => {
                         console.log(err);
                         res.status(500).json({
+                            statusCode: 500,
                             error: err
                         })
                     });
@@ -37,6 +40,7 @@ exports.create_user = (req, res, next) => {
         })
         .catch(err => {
             res.status(500).json({
+                statusCode: 500,
                 error: err
             })
         })
@@ -47,12 +51,14 @@ exports.loginUser = (req, res, next) => {
         .then(user => { // Here user is an array of users.
             if (user.length < 1) {
                 return res.status(401).json({
+                    statusCode: 401,
                     message: 'Auth Failed'
                 })
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (err) {
                     return res.status(401).json({
+                        statusCode: 401,
                         message: 'Auth Failed'
                     });
                 }
@@ -68,11 +74,13 @@ exports.loginUser = (req, res, next) => {
                         }
                     )
                     return res.status(201).json({
+                        statusCode: 201,
                         message: 'Auth Successfull',
                         token: token
                     });
                 }
-                return res.status(201).json({
+                return res.status(401).json({
+                    statusCode: 401,
                     message: 'Auth Failed'
                 })
             })
@@ -83,11 +91,13 @@ exports.getAllUsers = (req, res, next) => {
     User.find()
         .then((result) => {
             res.status(201).json({
+                statusCode: 201,
                 users: result
             })
         })
         .catch(err => {
             res.status(500).json({
+                statusCode: 500,
                 error: err
             })
         })
@@ -98,12 +108,14 @@ exports.getSingleUser = (req, res, next) => {
     User.find({ _id: id })
         .then(result => {
             res.status(201).json({
+                statusCode: 201,
                 user: result,
                 message: "Successfully pulled single user"
             })
         })
         .catch(err => {
             res.status(500).json({
+                statusCode: 500,
                 error: err
             })
         })
@@ -127,12 +139,14 @@ exports.updateProfile = (req, res, next) => {
                 .populate('profile')
                 .then(result => {
                     res.status(201).json({
+                        statusCode: 201,
                         user: result,
                         message: "Successfully pulled single user 3333"
                     })
                 })
                 .catch(err => {
                     res.status(500).json({
+                        statusCode: 500,
                         error: err
                     })
                 })
@@ -140,6 +154,7 @@ exports.updateProfile = (req, res, next) => {
         .catch((err) => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             })
         });
