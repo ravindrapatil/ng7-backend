@@ -59,7 +59,7 @@ exports.loginUser = (req, res, next) => {
                 if (err) {
                     return res.status(401).json({
                         statusCode: 401,
-                        message: 'Auth Failed'
+                        message: 'Auth Failed. Please try with valid credentials'
                     });
                 }
                 if (result) {
@@ -75,13 +75,13 @@ exports.loginUser = (req, res, next) => {
                     )
                     return res.status(201).json({
                         statusCode: 201,
-                        message: 'Auth Successfull',
+                        message: 'Auth Successfull. You will be redirected to Dashboard',
                         token: token
                     });
                 }
                 return res.status(401).json({
                     statusCode: 401,
-                    message: 'Auth Failed'
+                    message: 'Auth Failed. Please try with valid credentials'
                 })
             })
         })
